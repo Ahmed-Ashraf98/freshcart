@@ -1,4 +1,77 @@
 <div class="container min-vh-100">
-    <p>signup works!</p>
+    <h3 class="mt-4">Sign Up Now:</h3>
+
+    
+<!-- (ngSubmit)="sendData() -->
+<!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button> -->
+
+
+
+<div [ngClass]="{
+  'show': showErrorPopUp == true,
+  'hide': showErrorPopUp == false
+
+}" class="toast align-items-center bg-danger-subtle border border-danger position-fixed p-3" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body fw-bold">
+      {{errMsg}}
+    </div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+
+
+
+    <form class="row g-3 mt-2"  [formGroup]="registerForm" >
+        <div class="col-12">
+          <label for="name" class="form-label">Name</label>
+          <input 
+          [ngClass] = "{
+            'is-valid':!registerForm.get('name')?.errors && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty),
+            'is-invalid':registerForm.get('name')?.errors && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty)
+          }"
+          type="text" formControlName="name" class="form-control" id="name">
+          
+          <app-alert-error [formObj]="registerForm" inputName="name"></app-alert-error>
+
+        </div>
+        <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input
+            
+            [ngClass] = "{
+              'is-valid':!registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty),
+              'is-invalid':registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)
+            }"
+            
+            type="email" formControlName="email" class="form-control" id="email">
+
+            <app-alert-error [formObj]="registerForm" inputName="email"></app-alert-error>
+
+
+        </div>
+        <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input
+            [ngClass] = "{
+              'is-valid':!registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty),
+              'is-invalid':registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)
+            }"
+            
+            type="password" formControlName="password" class="form-control" (keyup)="checkPassword()" id="password">
+            <app-alert-error [formObj]="registerForm" inputName="password"></app-alert-error>
+        </div>
+        <div class="col-12">
+            <label for="rePassword" class="form-label">Re-Password</label>
+            <input 
+            type="password" formControlName="rePassword" class="form-control" id="rePassword">
+            <app-alert-error [formObj]="registerForm" inputName="rePassword"></app-alert-error>
+        </div>
+        <div class="col-auto">
+
+          <button type="button" (click)="sendData()" class="btn bg-main text-white mb-3" [disabled]="registerForm.invalid" >Register</button>
+        </div>
+      </form>
+
 </div>
 

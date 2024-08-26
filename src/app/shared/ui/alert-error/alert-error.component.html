@@ -1,0 +1,50 @@
+
+@if(formObj?.get(inputName)?.touched && formObj?.get(inputName)?.errors){
+    <div class="alert alert-danger mt-1">
+      <ul>
+        @if(formObj?.get(inputName)?.getError("required")){
+          <li>
+            The {{inputName}} is required
+          </li>
+        }
+        
+        @if(formObj?.get(inputName)?.getError("minlength")){
+          <li>
+            The {{inputName}} sholud contain at least 2 characters
+          </li>
+        }
+        
+        @if(formObj?.get(inputName)?.getError("maxlength")){
+          <li>
+            The {{inputName}} can have 20 characters maximum
+          </li>
+        }
+
+        @if(formObj?.get(inputName)?.getError("email")){
+            <li>
+              The {{inputName}} pattern is incorrect
+            </li>
+        }
+
+        @if(formObj?.get(inputName)?.getError("pattern")){
+            <li>
+              The {{inputName}} pattern is incorrect
+            </li>
+        }
+
+        @if(formObj?.get(inputName)?.getError("pattern")){
+            <li>
+              The {{inputName}} pattern is incorrect
+            </li>
+        }
+
+      </ul>
+    </div>
+
+}@else if (formObj?.get(inputName)?.touched && formObj?.getError("mismatch") && inputName == "rePassword") {
+    <div class="alert alert-danger mt-1">
+        <ul>
+            <li>The Passwords doesn't match</li>
+        </ul>
+    </div>
+}
