@@ -11,17 +11,19 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
+import { authGuard } from './core/guards/auth.guard';
+import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
 
 export const routes: Routes = [
 
-    {path:"",component:AuthLayoutComponent,children:[
+    {path:"",component:AuthLayoutComponent,canActivate:[isLoggedInGuard],children:[
             {path:"",redirectTo:"signin",pathMatch: 'full'},
             {path:"signin",component:SigninComponent},
             {path:"signup",component:SignupComponent},
         ]
     },
 
-    {path:"",component:MainLayoutComponent,children:[
+    {path:"",component:MainLayoutComponent,canActivate:[authGuard],children:[
         {path:"",redirectTo:"home",pathMatch: 'full'},
         {path:"home",component:HomeComponent},
         {path:"cart",component:CartComponent},

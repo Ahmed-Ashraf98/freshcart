@@ -19,6 +19,7 @@ export class SigninComponent {
   private readonly _router = inject(Router);
 
 
+
   showErrorPopUp:boolean = false
   errObj?:any;
 
@@ -33,6 +34,7 @@ export class SigninComponent {
     this._auth.login(this.loginForm.value).subscribe({
       next:(res:any)=> {
         this.saveTokenInLocalStorage(res.token)
+        this._auth.checkUserToken();
         this._router.navigate(['./home'])
       },
       error:(error)=> {
