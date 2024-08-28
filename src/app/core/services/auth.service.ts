@@ -25,15 +25,16 @@ export class AuthService {
    let token = localStorage.getItem("token");
 
    if(token){
-
+    console.log("The token : " + token);
       try{
         
         let originalVal = jwtDecode(token);
-        console.log(originalVal);
+        console.log("The token : " + originalVal);
     
       }catch(error){
+        console.log(error)
+        this._Router.navigate(["signin"]);
         localStorage.clear();
-        this._Router.navigate(["./signin"]);
       }
     
     }

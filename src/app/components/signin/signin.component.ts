@@ -35,7 +35,7 @@ export class SigninComponent {
       next:(res:any)=> {
         this.saveTokenInLocalStorage(res.token)
         this._auth.checkUserToken();
-        this._router.navigate(['./home'])
+        this._router.navigate(['home'])
       },
       error:(error)=> {
         console.log(error)
