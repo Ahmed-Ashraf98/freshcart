@@ -11,6 +11,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class HomeComponent {
 
   constructor(private _AuthService: AuthService){
+    console.log("Calling Token Function")
     this._AuthService.checkUserToken();
   }
 

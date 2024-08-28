@@ -32,11 +32,15 @@ export class AuthService {
         console.log("The token : " + originalVal);
     
       }catch(error){
-        console.log(error)
+        
         this._Router.navigate(["signin"]);
         localStorage.clear();
       }
     
+    }else{
+      console.log("Token Empty");
+      this._Router.navigate(["signin"]);
+      localStorage.clear();
     }
 
   }
