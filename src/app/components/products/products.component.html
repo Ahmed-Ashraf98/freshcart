@@ -1,10 +1,13 @@
 <div class="container my-2 min-vh-100">
+
+    @if(!isLoading){
     <div class="row gy-2">
     
+        
         @for (product of allProducts; track product.id) {
     
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="wrapper product overflow-hidden p-2">
+                <div (click)="showProductDetails(product.id)" class="wrapper product cursor-pointer overflow-hidden p-2">
                     <img [src]="product.imageCover" class="w-100"  alt="product image">
                     <p>{{product.category.name}}</p>
                     <h4>{{product.title.split(' ').slice(0,2).join(" ")}} ...</h4>
@@ -12,14 +15,19 @@
                         <p>{{product.price}} EGP</p>
                         <p><i class="fa-solid fa-star rating-color"></i> {{product.ratingsAverage}}</p>
                     </div>
-    
-                    <button class="btn bg-main d-block mx-auto text-center text-white">Add To Cart</button>
-    
+                    
+                    <button (click)="addProductToCart($event,product._id)" class="btn bg-main d-block mx-auto text-center text-white">Add To Cart</button>
+                    
                 </div>
              
             </div>
         }
     
     </div>
+    }@else {
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <h3 class="text-success fw-bold">Loading ....</h3>
+        </div>
+    }
 </div>
 

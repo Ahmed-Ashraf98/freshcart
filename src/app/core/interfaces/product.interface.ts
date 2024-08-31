@@ -38,3 +38,25 @@ export interface Product {
 	updatedAt: string;
 	id: string;
 }
+
+export interface ProductDetail {
+	sold: number;
+	images: string[];
+	subcategory: Subcategory[];
+	ratingsQuantity: number;
+	_id: string;
+	title: string;
+	slug: string;
+	description: string;
+	quantity: number;
+	price: number;
+	imageCover: string;
+	category: Category;
+	brand: Brand;
+	ratingsAverage: number;
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
+	reviews: any[];
+	id: string;
+}

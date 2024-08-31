@@ -1,1 +1,28 @@
-<p>product-details works!</p>
+<div class="container my-2 min-vh-100">
+    
+
+    @if(!isLoading){
+        <div class="row">
+            <div class="col-md-4">
+                <img [src]="productObj.imageCover" class="w-100" alt="Product Image">
+            </div>
+            <div class="col-md-8 d-flex flex-column justify-content-center">
+                <h3>{{productObj.title}}</h3>
+                <p>{{productObj.description}}</p>
+                <p class="fw-bold">{{productObj.category.name}}</p>
+                <ul class="list-unstyled d-flex justify-content-between">
+                  <li class="fw-bold">{{productObj.price}} EGP</li>
+                  <li><p><i class="fa-solid fa-star rating-color"></i> {{productObj.ratingsAverage}}</p></li>
+                </ul>
+                <button (click)="addProductToCart(productObj.id)" class="btn bg-main d-block text-center text-white">Add To Cart</button>
+            </div>
+        </div>
+    }@else {
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <h3 class="text-success fw-bold">Loading ....</h3>
+        </div>
+    }
+
+    
+
+</div>

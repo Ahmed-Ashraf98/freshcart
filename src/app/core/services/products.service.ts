@@ -11,6 +11,10 @@ export class ProductsService {
 
   getProducts(){
     return this._HttpClient.get(baseUrl+"products");
-  }  
+  } 
+
+  getProductById(productId:string){
+    return this._HttpClient.get(baseUrl+"products/"+productId);
+  }
 
 }
