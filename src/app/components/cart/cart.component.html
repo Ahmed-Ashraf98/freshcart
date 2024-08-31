@@ -1,5 +1,70 @@
-<div class="container min-vh-100">
+<div class="container my-2 min-vh-100">
 
-    
+    @if(!isLoading){
+
+        <div class="cart-wrapper mt-3">
+        
+            <h3>Shop Cart</h3>
+            <p>Total Price : {{cartObj.data.totalCartPrice}} EGP</p>
+            
+            @for (product of cartObj.data.products; track product.product.id) {
+
+                <div class="row my-3 mx-2 border-bottom border-bottom-3 ">
+                    <div class="col-md-1">
+                        <img [src]="product.product.imageCover" class="w-100" alt="Product Image">
+                    </div>
+                    <div class="col-md-11 d-flex justify-content-between">
+                        <div class="left-side">
+                            <h4>{{product.title}}</h4>
+                            <p>Price: {{product.price}}</p>
+                            <button (click)="removeItemFromCart(product.product.id)" class="remove-btn"><i class="fa-solid fa-trash-can pe-1"></i>Remove</button>
+                        </div>
+                        <div class="right-side d-flex align-items-center">
+                            <!-- <button class="remove-btn"><i class="fa-solid fa-minus me-2"></i></button>
+                            <p class="m-0 me-2">{{product.count}}</p>
+                            <button class="remove-btn"><i class="fa-solid fa-plus"></i></button> -->
+
+                            <select class="form-select form-select-sm" (change)="updateProductQTY($event.target,product.product.id)" aria-label=".form-select-sm example">
+                                @if(product.product.quantity > 20 ){
+                                    @for (item of [].constructor( 20 ); track $index) {  
+                                        @if(product.count == $index+1)  {
+                                            <option selected [value]="$index+1">{{$index+1}}</option>
+                                        }@else {
+                                            <option [value]="$index+1">{{$index+1}}</option>
+                                        }
+                                    }
+                                }@else {
+                                    @for (item of [].constructor( product.product.quantity ); track $index) {    
+                                        @if(product.count == $index+1)  {
+                                            <option selected [value]="$index+1">{{$index+1}}</option>
+                                        }@else {
+                                            <option [value]="$index+1">{{$index+1}}</option>
+                                        }
+                                    }
+                                }
+
+                                
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+        <button (click)="checkOut(cartObj.cartId)" class="mt-3 btn bg-main text-white">
+            Check Out
+        </button>
+
+    }@else {
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <h3 class="text-success fw-bold">Loading ....</h3>
+        </div>
+    }
+
+   
+   
 
 </div>

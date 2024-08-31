@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
+import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 
 export const routes: Routes = [
 
@@ -32,6 +33,7 @@ export const routes: Routes = [
         {path:"products",component:ProductsComponent},
         {path:"orders",component:OrdersComponent},
         {path:"product-details/:id",component:ProductDetailsComponent},
+        {path:"shipping-address/:id",component:ShippingAddressComponent},
         {path:"**",component:NotFoundComponent},
     ]
 }   
