@@ -1,0 +1,59 @@
+<div class="container my-2 min-vh-100">
+
+    @if(!isLoading){
+
+        @if (allWishlistProducts.length > 0) {
+
+            <div class="wishlist-wrapper mt-3 rounded rounded-3">
+
+                <h3>My Wishlist </h3>
+
+                @for (product of allWishlistProducts; track product.id) {
+    
+                    <div class="row my-3 mx-2 py-3 border-bottom border-bottom-3">
+
+                        <div class="col-md-1 rounded rounded-3 d-flex justify-content-center align-items-center">
+                            <button (click)="removeItemFromWishlist(product.id)" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+
+                        <div class="col-md-1 rounded rounded-3">
+                            <img [src]="product.imageCover" class="w-100 rounded rounded-3" alt="Product Image">
+                        </div>
+                        <div class="col-md-10 d-flex justify-content-between">
+                            <div class="left-side">
+                                <h4>{{product.title}}</h4>
+                                <p>Price: {{product.price}}</p>
+                                
+                            </div>
+                            <div class="right-side d-flex align-items-center">
+                                <button (click)="addProductToCart(product.id)" class="btn bg-main text-white">Add To Cart</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+    
+    
+                }
+    
+                
+
+            </div>
+          
+
+        }@else {
+            <div class="vh-100 d-flex flex-column justify-content-center align-items-center">
+                <h3 class="mb-4 fw-bold fst-italic">Your Wishlist Is Empty</h3>
+                <div class="custom-curve-border">
+                    <img src="/assets/images/empty-box.png" class="w-75 d-block mx-auto mt-4" alt="cart empty">
+                </div>
+            </div>
+        }
+
+        }@else {
+           <app-loader></app-loader>
+        }
+
+
+
+</div>
+

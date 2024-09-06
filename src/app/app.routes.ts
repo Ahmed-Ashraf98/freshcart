@@ -14,6 +14,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 export const routes: Routes = [
 
@@ -28,6 +29,7 @@ export const routes: Routes = [
         {path:"",redirectTo:"home",pathMatch: 'full'},
         {path:"home",component:HomeComponent},
         {path:"cart",component:CartComponent},
+        {path:"wishlist",component:WishlistComponent},
         {path:"categories",component:CategoriesComponent},
         {path:"brands",component:BrandsComponent},
         {path:"products",component:ProductsComponent},

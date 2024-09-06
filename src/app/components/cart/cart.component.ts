@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../core/services/cart.service';
 import { Cart } from '../../core/interfaces/cart.interface';
 import { Router } from '@angular/router';
+import { LoaderComponent } from '../../shared/ui/loader/loader.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [],
+  imports: [LoaderComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })

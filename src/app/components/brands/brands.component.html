@@ -1,14 +1,21 @@
 <div class="container my-2 min-vh-100">
-    <div class="row gy-2">
     
-        @for (brand of allBrands; track brand._id) {
+    @if(!isLoading){
+        <div class="row gy-2">
     
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="wrapper product overflow-hidden p-2">
-                    <img [src]="brand.image" class="w-100"  alt="brand image">
+            @for (brand of allBrands; track brand._id) {
+        
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="wrapper product overflow-hidden p-2">
+                        <img [src]="brand.image" class="w-100"  alt="brand image">
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        
+        </div>
+    }@else {
+        <app-loader></app-loader>
+    }
     
-    </div>
+    
 </div>

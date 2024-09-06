@@ -77,3 +77,11 @@ a , a:hover{
 {
     background-color: var(--light-color) !important;
 }
+
+
+.custom-curve-border{ 
+    max-width: 450px;
+    max-height: 450px;
+    background-color: var(--light-color);
+    border-radius:  73% 27% 82% 18% / 36% 55% 45% 64% ;
+  }
