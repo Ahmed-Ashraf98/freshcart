@@ -24,7 +24,7 @@ export class ShippingAddressComponent {
 
 
   getAppBaseUrl():string{
-    return  location.port ? `http://${location.host}/` :`http://${location.host}/#/home`;
+    return  location.port ? `http://${location.host}/` :`http://${location.host}/freshcart/#/home`;
   }
 
 
