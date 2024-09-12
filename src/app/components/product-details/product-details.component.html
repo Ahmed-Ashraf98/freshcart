@@ -7,6 +7,14 @@
                 <img [src]="productObj.imageCover" class="w-100" alt="Product Image">
             </div>
             <div class="col-md-8 d-flex flex-column justify-content-center">
+                <button (click)="wishlistToggler($event,productObj.id)" class="btn d-block text-end my-2 ms-auto">
+                    @if(wishlistItems.includes(productObj.id)){
+                        <i class="fa-solid fa-heart"></i>
+                    }@else {
+                        <i class="fa-regular fa-heart"></i>
+                    }
+                    
+                </button>
                 <h3>{{productObj.title}}</h3>
                 <p>{{productObj.description}}</p>
                 <p class="fw-bold">{{productObj.category.name}}</p>
@@ -18,9 +26,7 @@
             </div>
         </div>
     }@else {
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <h3 class="text-success fw-bold">Loading ....</h3>
-        </div>
+        <app-loader></app-loader>
     }
 
     

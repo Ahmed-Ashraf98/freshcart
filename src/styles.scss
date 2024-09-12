@@ -1,11 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+// if you'd like to use it without importing all of bootstrap it requires
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+// boostrap 5
+@import 'ngx-toastr/toastr-bs5-alert';
+
+
+
 :root
 {
     --main-color:#0aad0a;
     --light-color:#f0f3f2;
     --shadow: rgba(145,158,171,.2) 0px 2px 4px -1px,rgba(145,158,171,.14) 0px 4px 5px 0px,rgba(145,158,171,.12) 0px 1px 10px 0px;
-    --font-family:'Encode Sans Expanded', sans-serif;
+    --font-family:'Rubik', sans-serif;
     --rating-color:#ffc908;
 }
 
@@ -84,4 +97,4 @@ a , a:hover{
     max-height: 450px;
     background-color: var(--light-color);
     border-radius:  73% 27% 82% 18% / 36% 55% 45% 64% ;
-  }
+}

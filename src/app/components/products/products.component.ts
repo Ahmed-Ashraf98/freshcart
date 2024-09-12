@@ -5,6 +5,7 @@ import { CartService } from '../../core/services/cart.service';
 import { Router } from '@angular/router';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { LoaderComponent } from '../../shared/ui/loader/loader.component';
+import { ToasterManagerComponent } from '../../shared/ui/toaster-manager/toaster-manager.component';
 
 @Component({
   selector: 'app-products',
@@ -23,13 +24,19 @@ export class ProductsComponent implements OnInit {
   private readonly _CartService = inject(CartService);
   private readonly _WishlistService = inject(WishlistService);
 
+  toasterManger = new ToasterManagerComponent();
+
   addProductToCart(event:MouseEvent,productId:string){
+    this.isLoading = true;
     event.stopPropagation();
     this._CartService.addProductToCart(productId).subscribe({
       next:(res)=>{
-        console.log(res)
-      },
-      error: (err:any) => console.log(err)
+        this._CartService.cartCounter.next(res.numOfCartItems)
+        this.toasterManger.showSuccess("Product Added in Cart Successfully");
+      },error:(err)=>{
+        this.toasterManger.showError("Error: "+err.error.message)
+        this.isLoading = false;
+      }
     })
   }
 
@@ -44,8 +51,10 @@ export class ProductsComponent implements OnInit {
       next:(res:any)=>{
         this.isLoading = false;
         this.updateWishlistIcons(res.data)
-      },
-      error: (err:any) => console.log(err)
+      },error:(err)=>{
+        this.toasterManger.showError("Error: "+err.error.message)
+        this.isLoading = false;
+      }
     })
   }
 
@@ -55,21 +64,28 @@ export class ProductsComponent implements OnInit {
     if(this.wishlistItems.includes(productId)){
         this._WishlistService.removeItemFromWishlist(productId).subscribe({
           next:(res:any)=>{
-            console.log(res)
+            this.toasterManger.showInfo("Product Removed From Wishlist");
             this.wishlistItems = [...res.data]
+            this._WishlistService.wishlistCounter.next(this.wishlistItems.length)
             this.isLoading = false;
           },
-          error: (err:any) => console.log(err)
+          error:(err)=>{
+            this.toasterManger.showError("Error: "+err.error.message)
+            this.isLoading = false;
+          }
         })
     }else{
 
       this._WishlistService.addItemToWishlist(productId).subscribe({
         next:(res:any)=>{
-  
+          this.toasterManger.showSuccess("Product added successfully to Wishlist");
           this.wishlistItems = [...res.data]
+          this._WishlistService.wishlistCounter.next(this.wishlistItems.length)
           this.isLoading = false;
-        },
-        error: (err:any) => console.log(err)
+        },error:(err)=>{
+          this.toasterManger.showError("Error: "+err.error.message)
+          this.isLoading = false;
+        }
       })
 
     }
@@ -83,6 +99,7 @@ export class ProductsComponent implements OnInit {
 
 
   getAllProducts(){
+    
     this._ProductsService.getProducts().subscribe(
       { 
         next:(res:any)=> 
@@ -91,7 +108,10 @@ export class ProductsComponent implements OnInit {
             this.allProducts = res.data;
             this.getGetLoggedUserWishlist();
           },
-        error: (err:any) => console.log(err)
+          error:(err)=>{
+            this.toasterManger.showError("Error: "+err.error.message)
+            this.isLoading = false;
+          }
       }
     )
   }

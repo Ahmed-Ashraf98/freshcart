@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { OrderService } from '../core/services/order.service';
+import { OrderService } from '../../core/services/order.service';
 
 @Component({
   selector: 'app-shipping-address',
@@ -23,8 +23,13 @@ export class ShippingAddressComponent {
   })
 
 
+  getAppBaseUrl():string{
+    return  location.port ? `http://${location.host}/` :`http://${location.host}/#/home`;
+  }
+
+
   createPaymentSeession(cartId:string){
-    this._OrderService.createCheckoutSession(cartId,this.shippingForm.value).subscribe({
+    this._OrderService.createCheckoutSession(cartId,this.getAppBaseUrl(),this.shippingForm.value).subscribe({
       next:(res:any)=>{
         console.log(res)
         window.location.href=res.session.url;

@@ -3,6 +3,7 @@ import { CartService } from '../../core/services/cart.service';
 import { Cart } from '../../core/interfaces/cart.interface';
 import { Router } from '@angular/router';
 import { LoaderComponent } from '../../shared/ui/loader/loader.component';
+import { ToasterManagerComponent } from '../../shared/ui/toaster-manager/toaster-manager.component';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +20,8 @@ export class CartComponent implements OnInit {
 
   isLoading:boolean = true;
   cartObj : Cart = {} as Cart;
+  toasterManger = new ToasterManagerComponent();
+
 
   getLoggedInUserCart(){
     this._CartService.getLoggedInUserCart().subscribe({
@@ -33,24 +36,31 @@ export class CartComponent implements OnInit {
     this._Router.navigate(["shipping-address/"+cartId]);
   }
 
-  removeItemFromCart(productId:string){
+  removeItemFromCart(productId:string){ 
+    this.isLoading= true;
     this._CartService.removeCartItem(productId).subscribe({
       next :(res)=>{
-        //TODO: Check Quantity in response of update quantity
-        this.getLoggedInUserCart()
+        this._CartService.cartCounter.next(res.numOfCartItems)
+        this.toasterManger.showInfo("Product Removed from the Cart");
+        this.getLoggedInUserCart();
+        
+
+      },
+      error:(err:any)=>{
+        this.toasterManger.showError("Error: "+err.error.message)
       }
     })
   }
 
   updateProductQTY(selectEle:any,productId:string){
+    this.isLoading= true;
     let selectVal = selectEle.value;
     this._CartService.updateCartProductQTY(productId,selectVal).subscribe({
       next:(res)=>{
-        //TODO: Check Quantity in response of update quantity
-        this.getLoggedInUserCart()
+        this.getLoggedInUserCart();
       },
-      error:(e)=>{
-        console.log(e)
+      error:(err:any)=>{
+        this.toasterManger.showError("Error: "+err.error.message)
       }
     })
   }

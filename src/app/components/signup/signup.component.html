@@ -6,22 +6,6 @@
 <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button> -->
 
 
-
-<div [ngClass]="{
-  'show': showErrorPopUp == true,
-  'hide': showErrorPopUp == false
-
-}" class="toast align-items-center bg-danger-subtle border border-danger position-fixed p-3" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="d-flex">
-    <div class="toast-body fw-bold">
-      {{errMsg}}
-    </div>
-    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-</div>
-
-
-
     <form class="row g-3 mt-2"  [formGroup]="registerForm" >
         <div class="col-12">
           <label for="name" class="form-label">Name</label>
@@ -69,7 +53,13 @@
         </div>
         <div class="col-auto">
 
-          <button type="button" (click)="sendData()" class="btn bg-main text-white mb-3" [disabled]="registerForm.invalid" >Register</button>
+          <button type="button" (click)="sendData()" class="btn bg-main text-white mb-3" [disabled]="registerForm.invalid|| isBtnLoad" >
+          @if (isBtnLoad) {
+              <app-btn-loader></app-btn-loader>
+          }@else {
+              <span>Register</span>
+          }    
+          </button>
         </div>
       </form>
 

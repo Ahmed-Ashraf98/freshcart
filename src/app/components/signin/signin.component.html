@@ -1,7 +1,6 @@
 <div class="container min-vh-100">
+  
     <h3 class="mt-4">Login Now:</h3>
-
-    <app-toast-error [errorObj]="errObj" [showErrorPopUp]="showErrorPopUp"></app-toast-error>
 
     <form class="row g-3 mt-2"  [formGroup]="loginForm" >
        
@@ -9,18 +8,23 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" formControlName="email" class="form-control" id="email">
 
-            <!-- <app-alert-error [formObj]="registerForm" inputName="email"></app-alert-error> -->
-
-
         </div>
         <div class="col-12">
             <label for="password" class="form-label">Password</label>
             <input type="password" formControlName="password" class="form-control"  id="password">
-            <!-- <app-alert-error [formObj]="registerForm" inputName="password"></app-alert-error> -->
+            
         </div>
-        <div class="col-auto">
-
-          <button type="button" (click)="loginIntoApp()" class="btn bg-main text-white mb-3" [disabled]="loginForm.invalid" >Login</button>
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center">
+            <button type="button" (click)="loginIntoApp()" class="btn bg-main text-white" [disabled]="loginForm.invalid || isBtnLoad" >
+            @if (isBtnLoad) {
+                <app-btn-loader></app-btn-loader>
+            }@else {
+                <span>Login</span>
+            }            
+            </button>
+            <a class="nav-link fw-bold" aria-current="page" routerLink="/forgotpwd">Forgot Password ?</a>  
+          </div>
         </div>
       </form>
 

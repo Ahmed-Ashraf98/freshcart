@@ -4,11 +4,13 @@ import { AlertErrorComponent } from "../../shared/ui/alert-error/alert-error.com
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { ToasterManagerComponent } from '../../shared/ui/toaster-manager/toaster-manager.component';
+import { BtnLoaderComponent } from '../../shared/ui/btn-loader/btn-loader.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, AlertErrorComponent,NgClass],
+  imports: [ReactiveFormsModule, AlertErrorComponent,NgClass,BtnLoaderComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -17,9 +19,9 @@ export class SignupComponent implements OnInit{
   private readonly _auth = inject(AuthService);
   private readonly _router = inject(Router);
 
+  isBtnLoad : boolean = false;
+  toasterManger = new ToasterManagerComponent();
 
-  showErrorPopUp:boolean = false
-  errMsg :string = '';
 
   registerForm = new FormGroup({
 
@@ -35,14 +37,18 @@ export class SignupComponent implements OnInit{
   }
 
   sendData(){
+    this.isBtnLoad = true;
     this._auth.signUp(this.registerForm.value).subscribe({
       next:(res)=> {
-        console.log(res)
+        console.log(res);
+        this.toasterManger.showSuccess("Account Is Created Successfully");
         this._router.navigate(['./signin'])
+        this.isBtnLoad = false;
       },
       error:(error)=> {
-        this.showErrorPopUp = true;
-        this.errMsg = error.error.message
+        this.isBtnLoad = false;
+        let errMsg = error.error.message
+        this.toasterManger.showError("Unable to create an account, "+ errMsg);
       }
     });
     

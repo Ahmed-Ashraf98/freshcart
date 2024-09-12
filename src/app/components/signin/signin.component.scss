@@ -1,0 +1,6 @@
+a[routerLink='/forgotpwd']{
+    cursor: pointer;
+    &:hover{
+        color: var(--main-color);
+    }
+}

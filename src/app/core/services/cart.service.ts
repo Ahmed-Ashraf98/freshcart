@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { baseUrl } from '../environment/environment.prod';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class CartService {
 
   private readonly _HttpClient = inject(HttpClient);
+  cartCounter : BehaviorSubject<number> = new BehaviorSubject(0);
 
   headers = {
     token : localStorage.getItem("token")!

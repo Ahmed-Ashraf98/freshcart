@@ -13,29 +13,31 @@ import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isLoggedInGuard } from './core/guards/is-logged-in.guard';
-import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
-import { WishlistComponent } from './wishlist/wishlist.component';
+import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
 
     {path:"",component:AuthLayoutComponent,canActivate:[isLoggedInGuard],children:[
             {path:"",redirectTo:"signin",pathMatch: 'full'},
             {path:"signin",component:SigninComponent},
+            {path:"forgotpwd",component:ForgotPasswordComponent},
             {path:"signup",component:SignupComponent},
         ]
     },
 
     {path:"",component:MainLayoutComponent,canActivate:[authGuard],children:[
         {path:"",redirectTo:"home",pathMatch: 'full'},
-        {path:"home",component:HomeComponent},
-        {path:"cart",component:CartComponent},
-        {path:"wishlist",component:WishlistComponent},
-        {path:"categories",component:CategoriesComponent},
-        {path:"brands",component:BrandsComponent},
-        {path:"products",component:ProductsComponent},
-        {path:"orders",component:OrdersComponent},
-        {path:"product-details/:id",component:ProductDetailsComponent},
-        {path:"shipping-address/:id",component:ShippingAddressComponent},
+        {path:"home",component:HomeComponent,canActivate:[authGuard]},
+        {path:"cart",component:CartComponent,canActivate:[authGuard]},
+        {path:"wishlist",component:WishlistComponent,canActivate:[authGuard]},
+        {path:"categories",component:CategoriesComponent,canActivate:[authGuard]},
+        {path:"brands",component:BrandsComponent,canActivate:[authGuard]},
+        {path:"products",component:ProductsComponent,canActivate:[authGuard]},
+        {path:"orders",component:OrdersComponent,canActivate:[authGuard]},
+        {path:"product-details/:id",component:ProductDetailsComponent,canActivate:[authGuard]},
+        {path:"shipping-address/:id",component:ShippingAddressComponent,canActivate:[authGuard]},
         {path:"**",component:NotFoundComponent},
     ]
 }   
